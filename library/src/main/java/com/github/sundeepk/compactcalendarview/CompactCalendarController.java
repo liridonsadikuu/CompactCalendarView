@@ -15,7 +15,9 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
+
 import com.github.sundeepk.compactcalendarview.domain.Event;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -217,7 +219,7 @@ class CompactCalendarController {
             densityAdjustedSnapVelocity = (int) (screenDensity * SNAP_VELOCITY_DIP_PER_SECOND);
             maximumVelocity = configuration.getScaledMaximumFlingVelocity();
 
-            final DisplayMetrics dm = context.getResources().getDisplayMetrics() ;
+            final DisplayMetrics dm = context.getResources().getDisplayMetrics();
             multiDayIndicatorStrokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, dm);
         }
     }
@@ -236,7 +238,7 @@ class CompactCalendarController {
         calendarWithFirstDayOfMonth.set(Calendar.MILLISECOND, 0);
     }
 
-    void setShouldSelectFirstDayOfMonthOnScroll(boolean shouldSelectFirstDayOfMonthOnScroll){
+    void setShouldSelectFirstDayOfMonthOnScroll(boolean shouldSelectFirstDayOfMonthOnScroll) {
         this.shouldSelectFirstDayOfMonthOnScroll = shouldSelectFirstDayOfMonthOnScroll;
     }
 
@@ -244,7 +246,7 @@ class CompactCalendarController {
         this.displayOtherMonthDays = displayOtherMonthDays;
     }
 
-    void shouldDrawIndicatorsBelowSelectedDays(boolean shouldDrawIndicatorsBelowSelectedDays){
+    void shouldDrawIndicatorsBelowSelectedDays(boolean shouldDrawIndicatorsBelowSelectedDays) {
         this.shouldDrawIndicatorsBelowSelectedDays = shouldDrawIndicatorsBelowSelectedDays;
     }
 
@@ -256,7 +258,7 @@ class CompactCalendarController {
         this.eventIndicatorStyle = eventIndicatorStyle;
     }
 
-    void setCurrentSelectedDayIndicatorStyle(int currentSelectedDayIndicatorStyle){
+    void setCurrentSelectedDayIndicatorStyle(int currentSelectedDayIndicatorStyle) {
         this.currentSelectedDayIndicatorStyle = currentSelectedDayIndicatorStyle;
     }
 
@@ -264,11 +266,11 @@ class CompactCalendarController {
         this.targetHeight = targetHeight;
     }
 
-    float getScreenDensity(){
+    float getScreenDensity() {
         return screenDensity;
     }
 
-    float getDayIndicatorRadius(){
+    float getDayIndicatorRadius() {
         return bigCircleIndicatorRadius;
     }
 
@@ -288,7 +290,7 @@ class CompactCalendarController {
         return targetHeight;
     }
 
-    int getWidth(){
+    int getWidth() {
         return width;
     }
 
@@ -300,7 +302,7 @@ class CompactCalendarController {
         eventsContainer.removeAllEvents();
     }
 
-    void setFirstDayOfWeek(int day){
+    void setFirstDayOfWeek(int day) {
         if (day < 1 || day > 7) {
             throw new IllegalArgumentException("Day must be an int between 1 and 7 or DAY_OF_WEEK from Java Calendar class. For more information please see Calendar.DAY_OF_WEEK.");
         }
@@ -336,7 +338,7 @@ class CompactCalendarController {
     void showNextMonth() {
         monthsScrolledSoFar = monthsScrolledSoFar - 1;
         accumulatedScrollOffset.x = monthsScrolledSoFar * width;
-        if(shouldSelectFirstDayOfMonthOnScroll){
+        if (shouldSelectFirstDayOfMonthOnScroll) {
             setCalenderToFirstDayOfMonth(calendarWithFirstDayOfMonth, currentCalender.getTime(), 0, 1);
             setCurrentDate(calendarWithFirstDayOfMonth.getTime());
         }
@@ -346,7 +348,7 @@ class CompactCalendarController {
     void showPreviousMonth() {
         monthsScrolledSoFar = monthsScrolledSoFar + 1;
         accumulatedScrollOffset.x = monthsScrolledSoFar * width;
-        if(shouldSelectFirstDayOfMonthOnScroll){
+        if (shouldSelectFirstDayOfMonthOnScroll) {
             setCalenderToFirstDayOfMonth(calendarWithFirstDayOfMonth, currentCalender.getTime(), 0, -1);
             setCurrentDate(calendarWithFirstDayOfMonth.getTime());
         }
@@ -405,7 +407,7 @@ class CompactCalendarController {
     private float getInterpolatedBigCircleIndicator() {
         float x0 = textSizeRect.height();
         float x1 = heightPerDay; // take into account indicator offset
-        float x =  (x1 + textSizeRect.height()) / 2f; // pick a point which is almost half way through heightPerDay and textSizeRect
+        float x = (x1 + textSizeRect.height()) / 2f; // pick a point which is almost half way through heightPerDay and textSizeRect
         double y1 = 0.5 * Math.sqrt((x1 * x1) + (x1 * x1));
         double y0 = 0.5 * Math.sqrt((x0 * x0) + (x0 * x0));
 
@@ -425,12 +427,15 @@ class CompactCalendarController {
             drawCalenderBackground(canvas);
             drawScrollableCalender(canvas);
         }
+        drawSeparatorLine(canvas);
     }
 
     private void drawCalendarWhileAnimatingIndicators(Canvas canvas) {
         dayPaint.setColor(calenderBackgroundColor);
         dayPaint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(0, 0, growFactor, dayPaint);
+        //canvas.drawRectangle(0.0f, 0.0f, 100.0f, 100.0f);
+//        canvas.f(0.0f, 0.0f, 20.0f, 0.0f, dayPaint);
         dayPaint.setStyle(Paint.Style.STROKE);
         dayPaint.setColor(Color.WHITE);
         drawScrollableCalender(canvas);
@@ -640,7 +645,7 @@ class CompactCalendarController {
     }
 
     void addEvents(List<Event> events) {
-       eventsContainer.addEvents(events);
+        eventsContainer.addEvents(events);
     }
 
     List<Event> getCalendarEventsFor(long epochMillis) {
@@ -656,11 +661,11 @@ class CompactCalendarController {
     }
 
     void removeEvent(Event event) {
-       eventsContainer.removeEvent(event);
+        eventsContainer.removeEvent(event);
     }
 
     void removeEvents(List<Event> events) {
-       eventsContainer.removeEvents(events);
+        eventsContainer.removeEvents(events);
     }
 
     void setGrowProgress(float grow) {
@@ -749,10 +754,10 @@ class CompactCalendarController {
                 float xPosition = widthPerDay * dayOfWeek + paddingWidth + paddingLeft + accumulatedScrollOffset.x + offset - paddingRight;
                 float yPosition = weekNumberForMonth * heightPerDay + paddingHeight;
 
-                if (((animationStatus == EXPOSE_CALENDAR_ANIMATION || animationStatus == ANIMATE_INDICATORS) && xPosition >= growFactor ) || yPosition >= growFactor) {
+                if (((animationStatus == EXPOSE_CALENDAR_ANIMATION || animationStatus == ANIMATE_INDICATORS) && xPosition >= growFactor) || yPosition >= growFactor) {
                     // only draw small event indicators if enough of the calendar is exposed
                     continue;
-                } else if (animationStatus == EXPAND_COLLAPSE_CALENDAR && yPosition >= growFactor){
+                } else if (animationStatus == EXPAND_COLLAPSE_CALENDAR && yPosition >= growFactor) {
                     // expanding animation, just draw event indicators if enough of the calendar is visible
                     continue;
                 } else if (animationStatus == EXPOSE_CALENDAR_ANIMATION && (eventIndicatorStyle == FILL_LARGE_INDICATOR || eventIndicatorStyle == NO_FILL_LARGE_INDICATOR)) {
@@ -768,17 +773,16 @@ class CompactCalendarController {
 
                 if (shouldDrawIndicatorsBelowSelectedDays || (!shouldDrawIndicatorsBelowSelectedDays && !isSameDayAsCurrentDay && !isCurrentSelectedDay) || animationStatus == EXPOSE_CALENDAR_ANIMATION) {
                     if (eventIndicatorStyle == FILL_LARGE_INDICATOR || eventIndicatorStyle == NO_FILL_LARGE_INDICATOR) {
-                        if(!eventsList.isEmpty()){
-                            Event event = eventsList.get(0);
-                            drawEventIndicatorCircle(canvas, xPosition, yPosition, event.getColor());
-                        }
+                        Event event = eventsList.get(0);
+                        drawEventIndicatorCircle(canvas, xPosition, yPosition, event.getColor());
                     } else {
                         yPosition += indicatorOffset;
-                        // offset event indicators to draw below selected day indicators
+                        // offset event indicators to draw below selected day ind0icators
                         // this makes sure that they do no overlap
                         if (shouldDrawIndicatorsBelowSelectedDays && (isSameDayAsCurrentDay || isCurrentSelectedDay)) {
                             yPosition += indicatorOffset;
                         }
+
 
                         if (eventsList.size() >= 3) {
                             drawEventsWithPlus(canvas, xPosition, yPosition, eventsList);
@@ -829,20 +833,19 @@ class CompactCalendarController {
     // it returns 0-6 where 0 is Sunday instead of 1
     int getDayOfWeek(Calendar calendar) {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - firstDayOfWeekToDraw;
-        dayOfWeek = dayOfWeek < 0 ? 7 + dayOfWeek: dayOfWeek;
+        dayOfWeek = dayOfWeek < 0 ? 7 + dayOfWeek : dayOfWeek;
         return dayOfWeek;
     }
 
     void drawMonth(Canvas canvas, Calendar monthToDrawCalender, int offset) {
         drawEvents(canvas, monthToDrawCalender, offset);
-
         //offset by one because we want to start from Monday
         int firstDayOfMonth = getDayOfWeek(monthToDrawCalender);
 
         boolean isSameMonthAsToday = monthToDrawCalender.get(Calendar.MONTH) == todayCalender.get(Calendar.MONTH);
         boolean isSameYearAsToday = monthToDrawCalender.get(Calendar.YEAR) == todayCalender.get(Calendar.YEAR);
         boolean isSameMonthAsCurrentCalendar = monthToDrawCalender.get(Calendar.MONTH) == currentCalender.get(Calendar.MONTH) &&
-                                               monthToDrawCalender.get(Calendar.YEAR) == currentCalender.get(Calendar.YEAR);
+                monthToDrawCalender.get(Calendar.YEAR) == currentCalender.get(Calendar.YEAR);
         int todayDayOfMonth = todayCalender.get(Calendar.DAY_OF_MONTH);
         boolean isAnimatingWithExpose = animationStatus == EXPOSE_CALENDAR_ANIMATION;
 
@@ -882,13 +885,20 @@ class CompactCalendarController {
                 int day = ((dayRow - 1) * 7 + dayColumn + 1) - firstDayOfMonth;
                 int defaultCalenderTextColorToUse = calenderTextColor;
                 if (currentCalender.get(Calendar.DAY_OF_MONTH) == day && isSameMonthAsCurrentCalendar && !isAnimatingWithExpose) {
-                    drawDayCircleIndicator(currentSelectedDayIndicatorStyle, canvas, xPosition, yPosition, currentSelectedDayBackgroundColor);
+                    drawDayRectangleIndicator(currentSelectedDayIndicatorStyle, canvas, xPosition, yPosition, currentSelectedDayBackgroundColor);
                     defaultCalenderTextColorToUse = currentSelectedDayTextColor;
                 } else if (isSameYearAsToday && isSameMonthAsToday && todayDayOfMonth == day && !isAnimatingWithExpose) {
                     // TODO calculate position of circle in a more reliable way
-                    drawDayCircleIndicator(currentDayIndicatorStyle, canvas, xPosition, yPosition, currentDayBackgroundColor);
+                    drawDayRectangleIndicator(currentDayIndicatorStyle, canvas, xPosition, yPosition, currentDayBackgroundColor);
                     defaultCalenderTextColorToUse = currentDayTextColor;
                 }
+
+                if (isSameYearAsToday && isSameMonthAsToday && todayDayOfMonth == day) {
+                    dayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                } else {
+                    dayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                }
+
                 if (day <= 0) {
                     if (displayOtherMonthDays) {
                         // Display day month before
@@ -910,13 +920,14 @@ class CompactCalendarController {
                 }
             }
         }
+
     }
 
-    private void drawDayCircleIndicator(int indicatorStyle, Canvas canvas, float x, float y, int color) {
-        drawDayCircleIndicator(indicatorStyle, canvas, x, y, color, 1);
+    private void drawDayRectangleIndicator(int indicatorStyle, Canvas canvas, float x, float y, int color) {
+        drawDayRectangleIndicator(indicatorStyle, canvas, x, y, color, 1);
     }
 
-    private void drawDayCircleIndicator(int indicatorStyle, Canvas canvas, float x, float y, int color, float circleScale) {
+    private void drawDayRectangleIndicator(int indicatorStyle, Canvas canvas, float x, float y, int color, float circleScale) {
         float strokeWidth = dayPaint.getStrokeWidth();
         if (indicatorStyle == NO_FILL_LARGE_INDICATOR) {
             dayPaint.setStrokeWidth(2 * screenDensity);
@@ -924,19 +935,21 @@ class CompactCalendarController {
         } else {
             dayPaint.setStyle(Paint.Style.FILL);
         }
-        drawCircle(canvas, x, y, color, circleScale);
+        drawRectangle(canvas, x, y, color, circleScale);
         dayPaint.setStrokeWidth(strokeWidth);
         dayPaint.setStyle(Paint.Style.FILL);
     }
 
     // Draw Circle on certain days to highlight them
-    private void drawCircle(Canvas canvas, float x, float y, int color, float circleScale) {
+    private void drawRectangle(Canvas canvas, float x, float y, int color, float circleScale) {
         dayPaint.setColor(color);
         if (animationStatus == ANIMATE_INDICATORS) {
-            float maxRadius = circleScale * bigCircleIndicatorRadius * 1.4f;
-            drawRectangle(canvas,  x, y );
+            //float maxRadius = circleScale * bigCircleIndicatorRadius * 1.4f;
+            //drawRectangle(canvas, growfactorIndicator > maxRadius ? maxRadius : growfactorIndicator, x, y - (textHeight / 6));
+            drawRectangle(canvas, x, y + textHeight / 6);
         } else {
-            drawRectangle(canvas, x, y );
+            //drawRectangle(canvas, circleScale * bigCircleIndicatorRadius, x, y - (textHeight / 6));
+            drawRectangle(canvas, x, y + textHeight / 6);
         }
     }
 
@@ -944,30 +957,44 @@ class CompactCalendarController {
         dayPaint.setColor(color);
         if (eventIndicatorStyle == SMALL_INDICATOR) {
             dayPaint.setStyle(Paint.Style.FILL);
-            drawRectangle(canvas, x, y);
-        } else if (eventIndicatorStyle == NO_FILL_LARGE_INDICATOR){
+            drawRectangle(canvas, smallIndicatorRadius, x, y);
+        } else if (eventIndicatorStyle == NO_FILL_LARGE_INDICATOR) {
             dayPaint.setStyle(Paint.Style.STROKE);
-            drawDayCircleIndicator(NO_FILL_LARGE_INDICATOR, canvas, x, y, color);
+            drawDayRectangleIndicator(NO_FILL_LARGE_INDICATOR, canvas, x, y, color);
         } else if (eventIndicatorStyle == FILL_LARGE_INDICATOR) {
-            drawDayCircleIndicator(FILL_LARGE_INDICATOR, canvas, x, y, color);
+            drawDayRectangleIndicator(FILL_LARGE_INDICATOR, canvas, x, y, color);
         }
     }
 
-//    private void drawCircle(Canvas canvas, float radius, float x, float y) {
-//        canvas.drawCircle(x, y, radius, dayPaint);
-//    }
+    private void drawRectangle(Canvas canvas, float radius, float x, float y) {
+        canvas.drawCircle(x, y, radius, dayPaint);
+    }
 
     private void drawRectangle(Canvas canvas, float x, float y) {
 
-        final float startX = x;
-        final float startY = y;
-        final float endX = x;
+        final float startX = x - textWidth / 2;
+        final float startY = y - textHeight / 2 - 8;
+        final float endX = x + textWidth / 2;
         final float endY = y;
 
 
         //void drawRect(float left, float top, float right, float bottom, Paint paint)
+        //canvas.drawRect(startX, endY-textHeight-4, endX, endY + 2, dayPaint);
         canvas.drawRect(startX, startY, endX, endY, dayPaint);
-       // canvas.drawLine(startX, startY, endX, endY, dayPaint);
+
     }
 
+    private void drawSeparatorLine(Canvas canvas) {
+        final Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mPaint.setColor(Color.GRAY);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(0.5f);
+
+        final float stopY = heightPerDay - heightPerDay / 3.5f;
+        final float spaceOffset = textWidth / 1.5f;
+        canvas.drawLine(spaceOffset, stopY, width - spaceOffset, stopY, mPaint);
+        canvas.drawLine(spaceOffset, 1, width - spaceOffset, 1, mPaint);
+    }
 }
