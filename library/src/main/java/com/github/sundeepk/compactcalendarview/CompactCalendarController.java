@@ -954,6 +954,7 @@ class CompactCalendarController {
     }
 
     private void drawCircle(Canvas canvas, float radius, float x, float y) {
+        dayPaint.setColor(Color.BLACK);
         canvas.drawCircle(x, y, radius, dayPaint);
     }
 }
