@@ -934,9 +934,9 @@ class CompactCalendarController {
         dayPaint.setColor(color);
         if (animationStatus == ANIMATE_INDICATORS) {
             float maxRadius = circleScale * bigCircleIndicatorRadius * 1.4f;
-            drawRectangle(canvas,  x, y - (textHeight / 6));
+            drawRectangle(canvas,  x, y );
         } else {
-            drawRectangle(canvas, x, y - (textHeight / 6));
+            drawRectangle(canvas, x, y );
         }
     }
 
@@ -959,15 +959,15 @@ class CompactCalendarController {
 
     private void drawRectangle(Canvas canvas, float x, float y) {
 
-        final float startX = x - textWidth / 2;
+        final float startX = x;
         final float startY = y;
-        final float endX = x + textWidth / 2;
+        final float endX = x;
         final float endY = y;
 
 
         //void drawRect(float left, float top, float right, float bottom, Paint paint)
-        canvas.drawRect(startX, startY, endX, endY + 2, dayPaint);
-        canvas.drawLine(startX, startY, endX, endY, dayPaint);
+        canvas.drawRect(startX, startY, endX, endY, dayPaint);
+       // canvas.drawLine(startX, startY, endX, endY, dayPaint);
     }
 
 }
