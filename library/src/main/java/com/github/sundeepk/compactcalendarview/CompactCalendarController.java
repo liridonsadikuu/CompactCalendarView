@@ -934,9 +934,9 @@ class CompactCalendarController {
         dayPaint.setColor(color);
         if (animationStatus == ANIMATE_INDICATORS) {
             float maxRadius = circleScale * bigCircleIndicatorRadius * 1.4f;
-            drawCircle(canvas, growfactorIndicator > maxRadius ? maxRadius: growfactorIndicator, x, y - (textHeight / 6));
+            drawRectangle(canvas,  x, y - (textHeight / 6));
         } else {
-            drawCircle(canvas, circleScale * bigCircleIndicatorRadius, x, y - (textHeight / 6));
+            drawRectangle(canvas, x, y - (textHeight / 6));
         }
     }
 
@@ -944,7 +944,7 @@ class CompactCalendarController {
         dayPaint.setColor(color);
         if (eventIndicatorStyle == SMALL_INDICATOR) {
             dayPaint.setStyle(Paint.Style.FILL);
-            drawCircle(canvas, smallIndicatorRadius, x, y);
+            drawRectangle(canvas, x, y);
         } else if (eventIndicatorStyle == NO_FILL_LARGE_INDICATOR){
             dayPaint.setStyle(Paint.Style.STROKE);
             drawDayCircleIndicator(NO_FILL_LARGE_INDICATOR, canvas, x, y, color);
@@ -953,8 +953,21 @@ class CompactCalendarController {
         }
     }
 
-    private void drawCircle(Canvas canvas, float radius, float x, float y) {
-        dayPaint.setColor(Color.BLACK);
-        canvas.drawCircle(x, y, radius, dayPaint);
+//    private void drawCircle(Canvas canvas, float radius, float x, float y) {
+//        canvas.drawCircle(x, y, radius, dayPaint);
+//    }
+
+    private void drawRectangle(Canvas canvas, float x, float y) {
+
+        final float startX = x - textWidth / 2;
+        final float startY = y;
+        final float endX = x + textWidth / 2;
+        final float endY = y;
+
+
+        //void drawRect(float left, float top, float right, float bottom, Paint paint)
+        canvas.drawRect(startX, startY, endX, endY + 2, dayPaint);
+        canvas.drawLine(startX, startY, endX, endY, dayPaint);
     }
+
 }
