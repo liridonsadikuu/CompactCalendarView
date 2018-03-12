@@ -427,7 +427,7 @@ class CompactCalendarController {
             drawCalenderBackground(canvas);
             drawScrollableCalender(canvas);
         }
-        drawSeparatorLine(canvas);
+       // drawSeparatorLine(canvas);
     }
 
     private void drawCalendarWhileAnimatingIndicators(Canvas canvas) {
@@ -875,10 +875,10 @@ class CompactCalendarController {
                 // first row, so draw the first letter of the day
                 if (shouldDrawDaysHeader) {
                     dayPaint.setColor(calenderTextColor);
-                    dayPaint.setTypeface(Typeface.DEFAULT_BOLD);
+                    dayPaint.setTypeface(Typeface.DEFAULT);
                     dayPaint.setStyle(Paint.Style.FILL);
                     dayPaint.setColor(calenderTextColor);
-                    canvas.drawText(dayColumnNames[dayColumn], xPosition, paddingHeight, dayPaint);
+                    canvas.drawText(dayColumnNames[dayColumn], xPosition, 31, dayPaint);
                     dayPaint.setTypeface(Typeface.DEFAULT);
                 }
             } else {
@@ -973,7 +973,7 @@ class CompactCalendarController {
     private void drawRectangle(Canvas canvas, float x, float y) {
 
         final float startX = x - textWidth / 2;
-        final float startY = y - textHeight / 2 - 8;
+        final float startY = y - textHeight / 2 - 10;
         final float endX = x + textWidth / 2;
         final float endY = y;
 
